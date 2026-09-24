@@ -7,7 +7,7 @@
   <style>
     :root { color-scheme: light; font-family: Arial, Helvetica, sans-serif; background: #eeede4; color: #171916; }
     * { box-sizing: border-box; }
-    body { margin: 0; }
+    body { margin: 0; overflow-x: clip; }
     button, summary { font: inherit; }
     button, summary, a { -webkit-tap-highlight-color: transparent; }
     button:focus-visible, summary:focus-visible, a:focus-visible { outline: 2px solid #34647b; outline-offset: 5px; }
@@ -22,17 +22,24 @@
     .guide p { margin: 0 0 16px; }
     .guide a { color: #eeede4; }
     main { position: relative; max-width: 1800px; margin: 0 auto; min-height: 870px; }
-    .headline { position: absolute; right: 11%; top: -92px; margin: 0; font-size: clamp(48px, 6.7vw, 100px); line-height: .84; letter-spacing: -.075em; font-weight: 700; color: #568297; pointer-events: none; }
+    .headline { position: absolute; right: 11%; top: -92px; margin: 0; font-size: clamp(48px, 6.7vw, 100px); line-height: .84; letter-spacing: -.075em; font-weight: 700; color: #FF5000; pointer-events: none; }
     .headline span { display: block; padding-left: 8vw; }
     .through { position: absolute; left: 25%; top: 60px; margin: 0; font-size: clamp(48px, 6.7vw, 100px); line-height: .9; letter-spacing: -.07em; font-weight: 700; }
     figure { margin: 0; }
     .fragment { position: absolute; }
-    .fragment img { display: block; width: 100%; height: 100%; object-fit: cover; }
-    figcaption { font-size: 10px; padding-top: 7px; display: flex; justify-content: space-between; gap: 12px; }
+    .fragment-photo { position: relative; width: 100%; height: 100%; isolation: isolate; pointer-events: none; }
+    /* Leave three blur radii of space, then feather every layer to transparent before its boundary. */
+    .fragment img { display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+    .fragment-photo::before, .fragment-photo::after, .fragment-photo .blur-middle { position: absolute; inset: -300px; pointer-events: none; background-image: var(--photo); background-size: calc(100% - 600px) calc(100% - 600px); background-position: center; background-repeat: no-repeat; }
+    .fragment-photo::before { content: ''; filter: blur(12px); -webkit-mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, black 25%, transparent 75%); -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, black 25%, transparent 75%); mask-composite: intersect; }
+    .fragment-photo .blur-middle { filter: blur(26px); -webkit-mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 50%, transparent 75%); -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 50%, transparent 75%); mask-composite: intersect; }
+    .fragment-photo::after { content: ''; filter: blur(42px); -webkit-mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 75%); -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 75%); mask-composite: intersect; }
+    .fragment.stair { --photo: url('assets/stair-hk.png'); }
+    .fragment.kitchen { --photo: url('assets/kitchen-hk.png'); }
+    .fragment.lamp { --photo: url('assets/lamp-hk.png'); }
     .fragment.stair { left: 2%; top: 60px; width: 18%; height: 270px; }
     .fragment.kitchen { right: 2.5%; top: 74px; width: 19%; height: 235px; }
     .fragment.lamp { left: 28%; top: 213px; width: 8%; height: 109px; }
-    .fragment.lamp figcaption { font-size: 9px; }
     .scene { position: relative; padding-top: 202px; margin-left: 43%; width: 32%; }
     .scene-label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 9px; }
     #room-image { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
@@ -61,7 +68,7 @@
       .through { position: static; grid-column: 1 / -1; font-size: 49px; margin: -10px 0 0 15%; }
       .scene { grid-column: 1 / -1; grid-row: 3; width: 100%; margin: 0; padding: 0; }
       h1 { font-size: 39px; } #description { max-width: none; } .fragment { position: static; width: 100% !important; height: auto !important; }
-      .fragment img { height: 160px; } .fragment.lamp { display: none; } .navigation { position: static; grid-column: 1 / -1; width: 100%; max-width: none; }
+      .fragment-photo { height: 160px; } .fragment.lamp { display: none; } .navigation { position: static; grid-column: 1 / -1; width: 100%; max-width: none; }
       .hint { max-width: none; } footer { padding: 16px; font-size: 9px; } .guide { width: 240px; }
     }
   </style>
@@ -76,9 +83,9 @@
   <main>
     <p class="headline" aria-hidden="true">somewhere<span>between tides</span></p>
     <p class="through" aria-hidden="true">and light.</p>
-    <figure class="fragment stair"><img src="assets/stair-hk.png" alt="Red light falling on an empty spiral staircase overlooking Hong Kong harbour."><figcaption><span>01 / Spiral Stair</span><span>Upper level</span></figcaption></figure>
-    <figure class="fragment kitchen"><img src="assets/kitchen-hk.png" alt="A quiet green-tiled kitchen opening onto the sea."><figcaption><span>03 / Keeper's Kitchen</span></figcaption></figure>
-    <figure class="fragment lamp"><img src="assets/lamp-hk.png" alt="Amber lighthouse lens against the harbour at night."><figcaption><span>02 / Lamp Room</span></figcaption></figure>
+    <figure class="fragment stair"><div class="fragment-photo"><img src="assets/stair-hk.png" alt="Red light falling on an empty spiral staircase overlooking Hong Kong harbour."><span class="blur-middle" aria-hidden="true"></span></div></figure>
+    <figure class="fragment kitchen"><div class="fragment-photo"><img src="assets/kitchen-hk.png" alt="A quiet green-tiled kitchen opening onto the sea."><span class="blur-middle" aria-hidden="true"></span></div></figure>
+    <figure class="fragment lamp"><div class="fragment-photo"><img src="assets/lamp-hk.png" alt="Amber lighthouse lens against the harbour at night."><span class="blur-middle" aria-hidden="true"></span></div></figure>
     <section class="scene" aria-live="polite" aria-atomic="true" aria-label="Current room">
       <p class="scene-label">Your place in the night</p>
       <img id="room-image" src="assets/rocks-hk.png" width="1536" height="1024" alt="An empty rocky Hong Kong shoreline beside a glowing lighthouse, with green and red harbour reflections across the water.">
