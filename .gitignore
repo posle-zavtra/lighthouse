@@ -5,3 +5,9 @@ dist/
 .env
 .env.*
 .dev.vars
+
+.next/
+.open-next/
+out/
+*.tsbuildinfo
+next-env.d.ts

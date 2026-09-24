@@ -1,11 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Last Light · Hong Kong after dark</title>
-  <style>
-    :root { color-scheme: light; font-family: Arial, Helvetica, sans-serif; background: #eeede4; color: #171916; }
+:root { color-scheme: light; font-family: Arial, Helvetica, sans-serif; background: #eeede4; color: #171916; }
     * { box-sizing: border-box; }
     body { margin: 0; overflow-x: clip; }
     button, summary { font: inherit; }
@@ -34,9 +27,9 @@
     .fragment-photo::before { content: ''; filter: blur(12px); -webkit-mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, black 25%, transparent 75%); -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, black 25%, transparent 75%); mask-composite: intersect; }
     .fragment-photo .blur-middle { filter: blur(26px); -webkit-mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 50%, transparent 75%); -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 50%, transparent 75%); mask-composite: intersect; }
     .fragment-photo::after { content: ''; filter: blur(42px); -webkit-mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 75%); -webkit-mask-composite: source-in; mask-image: radial-gradient(ellipse closest-side, black 35%, transparent 100%), linear-gradient(145deg, transparent 25%, black 75%); mask-composite: intersect; }
-    .fragment.stair { --photo: url('assets/stair-hk.png'); }
-    .fragment.kitchen { --photo: url('assets/kitchen-hk.png'); }
-    .fragment.lamp { --photo: url('assets/lamp-hk.png'); }
+    .fragment.stair { --photo: url('/assets/stair-hk.png'); }
+    .fragment.kitchen { --photo: url('/assets/kitchen-hk.png'); }
+    .fragment.lamp { --photo: url('/assets/lamp-hk.png'); }
     .fragment.stair { left: 2%; top: 60px; width: 18%; height: 270px; }
     .fragment.kitchen { right: 2.5%; top: 74px; width: 19%; height: 235px; }
     .fragment.lamp { left: 28%; top: 213px; width: 8%; height: 109px; }
@@ -71,39 +64,3 @@
       .fragment-photo { height: 160px; } .fragment.lamp { display: none; } .navigation { position: static; grid-column: 1 / -1; width: 100%; max-width: none; }
       .hint { max-width: none; } footer { padding: 16px; font-size: 9px; } .guide { width: 240px; }
     }
-  </style>
-  <script src="game.js" defer></script>
-</head>
-<body>
-  <header>
-    <div><p class="wordmark">The Last Light</p><p class="intro">A tiny adventure on the Hong Kong coast.<br>Four places, a restless sea, and a light<br>that stays on after dark.</p></div>
-    <p class="edition">HONG KONG / AFTER DARK</p>
-    <details><summary>Guide</summary><div class="guide"><p>Follow the light through four rooms. Use your arrow keys or the direction buttons to move.</p><p>The map shows where you are. If your way is blocked, the lighthouse will tell you why.</p><a href="#navigation">View the map</a></div></details>
-  </header>
-  <main>
-    <p class="headline" aria-hidden="true">somewhere<span>between tides</span></p>
-    <p class="through" aria-hidden="true">and light.</p>
-    <figure class="fragment stair"><div class="fragment-photo"><img src="assets/stair-hk.png" alt="Red light falling on an empty spiral staircase overlooking Hong Kong harbour."><span class="blur-middle" aria-hidden="true"></span></div></figure>
-    <figure class="fragment kitchen"><div class="fragment-photo"><img src="assets/kitchen-hk.png" alt="A quiet green-tiled kitchen opening onto the sea."><span class="blur-middle" aria-hidden="true"></span></div></figure>
-    <figure class="fragment lamp"><div class="fragment-photo"><img src="assets/lamp-hk.png" alt="Amber lighthouse lens against the harbour at night."><span class="blur-middle" aria-hidden="true"></span></div></figure>
-    <section class="scene" aria-live="polite" aria-atomic="true" aria-label="Current room">
-      <p class="scene-label">Your place in the night</p>
-      <img id="room-image" src="assets/rocks-hk.png" width="1536" height="1024" alt="An empty rocky Hong Kong shoreline beside a glowing lighthouse, with green and red harbour reflections across the water.">
-      <div class="room-line"><h1 id="room-name">Rocks</h1><span class="location">HONG KONG</span></div>
-      <p id="description">Black rocks glisten beneath the lighthouse, with the lights of Hong Kong reflected in the sea beyond. To the north a ladder leads to the lamp, while a kitchen door glows to the west.</p>
-      <h2>You can go</h2><div id="directions"></div>
-      <p id="message" role="status" aria-live="polite"></p>
-    </section>
-    <aside class="navigation" id="navigation" aria-label="Lighthouse navigation">
-      <h2>Four places / one lighthouse</h2>
-      <div class="map" aria-label="Room map, north at the top">
-        <div data-room="stair">Spiral Stair</div><div data-room="lamp">Lamp Room</div>
-        <div data-room="kitchen">Keeper's Kitchen</div><div data-room="rocks" aria-current="location">Rocks</div>
-      </div>
-      <p class="hint">Use your arrow keys to wander.<br>Or choose a direction beside the scene.</p>
-    </aside>
-    <noscript>This adventure needs JavaScript enabled to move between rooms.</noscript>
-  </main>
-  <footer><span>A lighthouse story</span><span>Four rooms. No rush.</span><span>Hong Kong, after dark</span></footer>
-</body>
-</html>
