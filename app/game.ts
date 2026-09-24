@@ -47,9 +47,6 @@ export function movePlayer(state: GameState, direction: Direction): GameState {
   const x = state.x + dx;
   const y = state.y + dy;
   const destination = rooms[y][x];
-  if (destination.id === 'lamp' && !state.hasVisitedKitchen) {
-    return { ...state, message: 'The lamp room door is locked.' };
-  }
   return {
     x, y, message: '',
     hasVisitedKitchen: state.hasVisitedKitchen || destination.id === 'kitchen',
